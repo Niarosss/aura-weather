@@ -1,0 +1,135 @@
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  &__wrapper {
+    display: flex;
+    gap: 0.8rem;
+  }
+  &__toggle {
+    display: flex;
+    align-items: center;
+    padding: 0.85rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    box-shadow: var(--item-shadow);
+    opacity: 0.9;
+    color: #fff;
+
+    &.add {
+      background-color: var(--success);
+    }
+    &.cancel {
+      background-color: var(--error);
+    }
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__group {
+    display: flex;
+    position: relative;
+  }
+
+  &__error {
+    position: absolute;
+    background-color: var(--error);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 1rem;
+    left: 0;
+    bottom: 40px;
+    color: var(--error-text);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+
+    &-close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--error-text);
+      margin-left: 10px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  &__input {
+    padding: 0.4rem 0.6rem;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 10px 0 0 10px;
+    width: 214px;
+    box-shadow: var(--item-shadow);
+    backdrop-filter: blur(4px);
+
+    &:focus {
+      outline: none;
+      border-color: var(--btn-bg);
+    }
+    &:hover {
+      border-color: var(--btn-hover);
+    }
+  }
+
+  &__submit,
+  &__button {
+    padding: 0.8rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    box-shadow: var(--item-shadow);
+  }
+
+  &__submit {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 0 10px 10px 0;
+    margin-left: -1px;
+    border: 1.4px solid var(--btn-bg);
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--btn-hover);
+      border: 1.4px solid var(--btn-hover);
+    }
+
+    &:active {
+      background-color: var(--btn-active);
+    }
+  }
+
+  &__button {
+    margin-left: 0.8rem;
+    border-radius: 10px;
+    border: 1.4px solid var(--border);
+    background-color: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--btn-secondary-hover-bg);
+    }
+  }
+}
