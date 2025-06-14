@@ -40,8 +40,6 @@ function App() {
     return savedPinned ? JSON.parse(savedPinned) : [];
   });
 
-  // Цей useEffect тепер відповідає ЛИШЕ за збереження pinned стану.
-  // locations більше не потрібно окремо зберігати, оскільки він динамічний.
   useEffect(() => {
     localStorage.setItem("pinned", JSON.stringify(pinned));
     // console.log("Pinned state updated:", pinned); // Для дебагу
