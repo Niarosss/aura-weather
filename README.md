@@ -54,5 +54,3 @@ Aura — це сучасний адаптивний погодний додат�
 - **API**: [OpenWeatherMap API](https://openweathermap.org/api)  
 - **Styles**: SCSS / CSS modules (as seen in codebase)  
 :contentReference[oaicite:1]{index=1}
-
----
