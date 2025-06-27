@@ -6,7 +6,7 @@
 Aura is a modern, responsive weather app built using Vite and React. It displays real-time weather data for selected cities, supports multiple locations, theming, and an animated UI.
 
 ### 🌐 Live Demo  
-👉 [https://niarosss.github.io/weather-app/](https://niarosss.github.io/weather-app/) :contentReference[oaicite:0]{index=0}
+👉 [https://niarosss.github.io/weather-app/](https://niarosss.github.io/weather-app/)
 
 ---
 
@@ -37,7 +37,7 @@ Aura is a modern, responsive weather app built using Vite and React. It displays
 Aura — це сучасний адаптивний погодний додаток на базі Vite + React, що показує актуальні погодні умови для обраних міст. Підтримує багатомістовий режим, теми оформлення та анімований інтерфейс.
 
 ### 🌐 Онлайн-версія
-👉 [https://niarosss.github.io/weather-app/](https://niarosss.github.io/weather-app/) :contentReference[oaicite:0]{index=0}
+👉 [https://niarosss.github.io/weather-app/](https://niarosss.github.io/weather-app/)
 
 ### 🛠️ Функціонал
 -Автоматичне визначення місцезнаходження
