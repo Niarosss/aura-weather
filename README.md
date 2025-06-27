@@ -1,30 +1,58 @@
-# 🌦️ Weather App
+# Aura Weather App 🌦️
 
-Це сучасний погодний додаток, створений на базі **Vite** та **React**
-Показує актуальну інформацію про погоду у вибраних містах із можливістю додавання, закріплення та перегляду в адаптивному UI.
+## 🇬🇧 English
 
-### 🚀 Демо
-[🔗 Відкрити додаток](https://niarosss.github.io/weather-app/)
+### 📌 Overview  
+Aura is a modern, responsive weather app built using Vite and React. It displays real-time weather data for selected cities, supports multiple locations, theming, and an animated UI.
 
----
-
-## 🔧 Функціонал
-
-- Автовизначення геолокації
-- Пошук погоди за містом
-- Темна/світла тема
-- Вибір кількох міст одночасно
-- Закріплення улюблених міст (localStorage)
-- Анімований інтерфейс з Framer Motion
-- Автоматичне оновлення погоди кожні 2 години
+### 🌐 Live Demo  
+👉 [https://niarosss.github.io/weather-app/](https://niarosss.github.io/weather-app/) :contentReference[oaicite:0]{index=0}
 
 ---
 
-## 🛠️ Стек
+### 🛠️ Features
 
-- [Vite](https://vitejs.dev/)
-- [React](https://reactjs.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [OpenWeatherMap API](https://openweathermap.org/api)
+- Auto-detects user geolocation  
+- Search weather by city name  
+- Dark/light theme toggle  
+- Manage multiple cities at once  
+- Pin favorite cities with `localStorage`  
+- Animated UI using **Framer Motion**  
+- Auto-refresh every 2 hours
+
+---
+
+### 🧰 Tech Stack
+
+- **Framework**: [React](https://reactjs.org/) (via [Vite](https://vitejs.dev/))  
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)  
+- **API**: [OpenWeatherMap API](https://openweathermap.org/api)  
+- **Styles**: SCSS / CSS modules (as seen in codebase)  
+:contentReference[oaicite:1]{index=1}
+
+---
+
+## 🇺🇦 Українська
+📌 Опис
+Aura — це сучасний адаптивний погодний додаток на базі Vite + React, що показує актуальні погодні умови для обраних міст. Підтримує багатомістовий режим, теми оформлення та анімований інтерфейс.
+
+### 🌐 Онлайн-версія
+👉 [https://niarosss.github.io/weather-app/](https://niarosss.github.io/weather-app/) :contentReference[oaicite:0]{index=0}
+
+### 🛠️ Функціонал
+-Автоматичне визначення місцезнаходження
+-Пошук погоди за містами
+-Перемикач теми (світла/темна)
+-Кілька міст одночасно
+-Закріплення улюблених міст (через localStorage)
+-Анімація інтерфейсу (Framer Motion)
+-Автооновлення кожні 2 години
+
+🧰 Технології
+- **Framework**: [React](https://reactjs.org/) (via [Vite](https://vitejs.dev/))  
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)  
+- **API**: [OpenWeatherMap API](https://openweathermap.org/api)  
+- **Styles**: SCSS / CSS modules (as seen in codebase)  
+:contentReference[oaicite:1]{index=1}
 
 ---
