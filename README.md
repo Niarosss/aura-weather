@@ -28,7 +28,6 @@ Aura is a modern, responsive weather app built using Vite and React. It displays
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)  
 - **API**: [OpenWeatherMap API](https://openweathermap.org/api)  
 - **Styles**: SCSS / CSS modules (as seen in codebase)  
-:contentReference[oaicite:1]{index=1}
 
 ---
 
@@ -52,5 +51,4 @@ Aura — це сучасний адаптивний погодний додат�
 - **Framework**: [React](https://reactjs.org/) (via [Vite](https://vitejs.dev/))  
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)  
 - **API**: [OpenWeatherMap API](https://openweathermap.org/api)  
-- **Styles**: SCSS / CSS modules (as seen in codebase)  
-:contentReference[oaicite:1]{index=1}
+- **Styles**: SCSS / CSS modules (as seen in codebase)
