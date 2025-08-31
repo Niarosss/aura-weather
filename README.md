@@ -1,6 +1,6 @@
 [English](./README.md) | [Українська](./README.uk.md)
 
-# Knowledge Base 📚
+# Aura Weather App 🌦️
 
 Aura is a modern, responsive weather app built using Vite and React. It displays real-time weather data for selected cities, supports multiple locations, theming, and an animated UI.
 
