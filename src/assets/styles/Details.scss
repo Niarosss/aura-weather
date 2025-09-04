@@ -2,15 +2,16 @@
 
 .details {
   width: 100%;
-  background-color: var(--foreground); // Використовуйте змінну для фону картки
+  max-width: 600px;
+  background-color: var(--foreground);
   border-radius: 14px;
   border: 1px solid var(--border);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--text-color); // Загальний колір тексту
-  box-shadow: var(--card-shadow); // Тінь для картки
+  color: var(--text-color);
+  box-shadow: var(--card-shadow);
   backdrop-filter: blur(4px);
   will-change: backdrop-filter;
   background-attachment: fixed;
@@ -21,25 +22,25 @@
   align-items: center;
   gap: 8px;
   padding: 10px 15px;
-  background-color: var(--btn-secondary-bg); // Фон кнопки
-  color: var(--btn-secondary-text); // Колір тексту кнопки
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
   border: none;
   border-radius: 12px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  align-self: flex-start; // Вирівнювання до лівого краю
-  margin-bottom: 20px; // Відступ від заголовка
+  align-self: flex-start;
+  margin-bottom: 20px;
 
   &:hover {
-    background-color: var(--btn-secondary-hover-bg); // Фон кнопки при наведенні
+    background-color: var(--btn-secondary-hover-bg);
     transform: translateY(-2px);
   }
 }
 
 .details__error-message {
-  color: var(--error-text); // Змінна для кольору помилки
+  color: var(--error-text);
   font-size: 1.1rem;
   font-weight: 500;
   text-align: center;
@@ -50,7 +51,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 10px;
-  color: var(--heading); // Колір заголовка
+  color: var(--heading);
   text-align: center;
 }
 
@@ -60,40 +61,37 @@
   align-items: center;
 
   .details__icon {
-    width: 150px; // Більша іконка
+    width: 150px;
     height: 150px;
-    margin-bottom: -20px; // Зміщення, щоб перекривалося з температурою
+    margin-bottom: -20px;
   }
 
   .details__temp {
-    font-size: 3rem; // Велика температура
+    font-size: 3rem;
     font-weight: 800;
     line-height: 1;
-    color: var(--heading); // Основний колір температури
+    color: var(--heading);
     margin-bottom: 5px;
   }
 
   .details__description {
     font-size: 1.4rem;
-    text-transform: capitalize; // Перша літера велика
-    color: var(--text-muted); // Трохи блідіший текст
+    text-transform: capitalize;
+    color: var(--text-muted);
   }
 }
 
 .details__grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(180px, 1fr)
-  ); // Адаптивна сітка
-  gap: 1rem; // Відстань між елементами сітки
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
   width: 100%;
-  max-width: 600px; // Обмеження ширини для великих екранів
+  max-width: 600px;
   margin-top: 20px;
 }
 
 .details__item {
-  background-color: var(--item-bg); // Фон для кожного елемента деталі
+  background-color: var(--item-bg);
   border-radius: 10px;
   padding: 15px;
   display: flex;
@@ -102,21 +100,20 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--text);
-  box-shadow: var(--item-shadow); // Тінь для елементів
+  box-shadow: var(--item-shadow);
 
   svg {
-    min-width: 20px; // Запобігає стисненню іконки
+    min-width: 20px;
     min-height: 20px;
   }
 
   span {
-    white-space: nowrap; // Запобігає розриву рядка для тексту
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; // Додає три крапки, якщо текст не поміщається
+    text-overflow: ellipsis;
   }
 }
 
-// Адаптивність для менших екранів
 @media (max-width: 768px) {
   .details {
     padding: 15px;
@@ -141,10 +138,7 @@
   }
 
   .details__grid {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(140px, 1fr)
-    ); // Зменшуємо мінімальну ширину
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 10px;
   }
 
@@ -170,11 +164,11 @@
   }
 
   .details__grid {
-    grid-template-columns: 1fr; // Одна колонка на дуже малих екранах
+    grid-template-columns: 1fr;
   }
 
   .details__item {
     font-size: 0.85rem;
-    justify-content: center; // Центруємо контент в елементі
+    justify-content: center;
   }
 }

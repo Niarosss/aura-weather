@@ -13,6 +13,11 @@
   box-shadow: var(--card-shadow);
   backdrop-filter: blur(4px);
 
+  @media (max-width: 768px) {
+    padding: 1rem;
+    width: 180px;
+  }
+
   &:hover {
     .card__btn-control {
       opacity: 1;
@@ -43,6 +48,10 @@
     color: var(--heading);
     border: 1px solid var(--border);
     box-shadow: var(--item-shadow);
+
+    @media (max-width: 768px) {
+      padding: 0.4rem 0.2rem;
+    }
   }
   &__temp-block {
     display: flex;

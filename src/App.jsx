@@ -20,21 +20,17 @@ function App() {
   // Новий стан для сплеш-скріну
   const [showSplash, setShowSplash] = useState(() => {
     // Показувати сплеш-скрін при кожному завантаженні сторінки
-    // Якщо хочете показувати лише один раз при першому візиті,
-    // використовуйте localStorage:
+    // Якщо треба показувати лише один раз при першому візиті:
     // const hasVisited = localStorage.getItem('hasVisited');
     // return hasVisited ? false : true;
-    return true; // Завжди показуємо при завантаженні для демонстрації
+    return true;
   });
 
-  // pinned зберігає назви міст, які мають бути закріплені
   const [pinned, setPinned] = useState(() => {
     const savedPinned = localStorage.getItem("pinned");
     return savedPinned ? JSON.parse(savedPinned) : [];
   });
 
-  // locations тепер ініціалізується ЗАКРІПЛЕНИМИ локаціями
-  // АБО порожнім масивом, якщо закріплених немає.
   const [locations, setLocations] = useState(() => {
     const savedPinned = localStorage.getItem("pinned");
     return savedPinned ? JSON.parse(savedPinned) : [];
@@ -42,12 +38,10 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("pinned", JSON.stringify(pinned));
-    // console.log("Pinned state updated:", pinned); // Для дебагу
   }, [pinned]);
 
   // Додаємо локацію
   const addLocations = (cityName) => {
-    // Якщо місто вже є в списку, не додаємо його знову
     if (locations.includes(cityName)) {
       return { error: "Ця локація вже додана." };
     } else {
@@ -58,9 +52,7 @@ function App() {
   // Видалення локації
   const removeLocations = (nameToRemove) => {
     setLocations((prev) => prev.filter((name) => name !== nameToRemove));
-    // Також видаляємо з pinned, якщо було закріплено
     setPinned((prev) => prev.filter((name) => name !== nameToRemove));
-    // console.log("Removed location:", nameToRemove); // Для дебагу
   };
 
   // Закріплення / Відкріплення локації
@@ -91,7 +83,7 @@ function App() {
 
   const handleStartApp = () => {
     setShowSplash(false);
-    // Якщо ви показуєте сплеш-скрін лише один раз:
+    // Якщо треба показувати сплеш-скрін лише один раз:
     // localStorage.setItem('hasVisited', 'true');
   };
 
@@ -99,7 +91,6 @@ function App() {
     setSelectedCity(city);
   };
 
-  // Функція для повернення назад, яку передаємо в WeatherDetails
   const handleBackToOverview = () => {
     setSelectedCity(null);
   };
@@ -132,7 +123,7 @@ function App() {
       <AnimatePresence mode="wait">
         {showSplash ? (
           <SplashScreen
-            key="splash-screen" // Важливо: key для AnimatePresence
+            key="splash-screen"
             onStart={handleStartApp}
             theme={theme}
             onToggleTheme={toggleTheme}
@@ -148,20 +139,19 @@ function App() {
             </button>
             <motion.div
               className="weather"
-              key="app-content" // Важливо: key для AnimatePresence
-              initial={{ opacity: 0, y: 50 }} // Анімація появи основного контенту
+              key="app-content"
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }} // Анімація зникнення (якщо ви колись захочете приховати весь додаток)
+              exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              layout // layout на цьому рівні також дозволяє анімувати його власні зміни розміру/позиції
+              layout
             >
               <AnimatePresence initial={false} mode="wait">
                 {selectedCity ? (
-                  // Якщо вибрано місто, показуємо деталі
                   <WeatherDetails
-                    key={selectedCity} // Ключ для AnimatePresence
+                    key={selectedCity}
                     city={selectedCity}
-                    onBack={handleBackToOverview} // Передаємо функцію для кнопки "Назад"
+                    onBack={handleBackToOverview}
                   />
                 ) : (
                   <motion.div
@@ -196,7 +186,7 @@ function App() {
                     </LayoutGroup>
 
                     <WeatherForm
-                      key="weather-form" // Key для AnimatePresence
+                      key="weather-form"
                       addLocations={addLocations}
                     />
                   </motion.div>

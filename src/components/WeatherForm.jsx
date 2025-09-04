@@ -110,84 +110,103 @@ function WeatherForm({ addLocations }) {
   };
 
   return (
-    <motion.div className="form__wrapper" key="menu" layout>
-      <AnimatePresence initial={false}>
+    <AnimatePresence initial={false}>
+      {/* Кнопка завжди в центрі, і її позиція не змінюється */}
+      <motion.div
+        className="form__wrapper"
+        key="menu"
+        layout
+        style={{ position: "relative" }} // Додаємо, щоб позиціонувати форму всередині
+      >
         <motion.button
           key="form-btn"
           transition={{ duration: 0.3 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          animate={{ x: showForm ? 115 : 275 }}
           className={`form__toggle ${showForm ? "cancel" : "add"}`}
           onClick={() => setShowForm((prev) => !prev)}
         >
           {showForm ? <CircleX size={16} /> : <CirclePlus size={16} />}
         </motion.button>
-        {showForm && (
-          <motion.form
-            initial={{ opacity: 0, x: 200 }}
-            animate={{ opacity: 1, x: 115 }}
-            exit={{ opacity: 0, x: 200 }}
-            transition={{ duration: 0.3 }}
-            className="form"
-            onSubmit={handleSubmit}
-            onAnimationComplete={() => {
-              if (showForm) {
-                focusInput();
-              }
-            }}
-          >
-            <div className="form__group">
-              <input
-                ref={cityInputRef}
-                type="text"
-                placeholder="Введіть назву міста"
-                className="form__input"
-                value={cityInput}
-                onChange={(e) => {
-                  setCityInput(e.target.value);
-                  setInputError(null);
-                }}
-              />
-              <AnimatePresence>
-                {inputError && (
-                  <motion.div
-                    key="input-error-message"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="form__error"
-                  >
-                    {inputError}
-                    <button
-                      type="button"
-                      onClick={() => setInputError(null)}
-                      className="form__error-close-btn"
-                      aria-label="Приховати помилку"
-                    >
-                      <XCircle size={16} />
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <button type="submit" className="form__submit" title="Пошук">
-                <Search size={16} />
-              </button>
-            </div>
 
-            <button
-              type="button"
-              onClick={handleGeolocation}
-              className="form__button"
-              title="Визначити моє місцезнаходження"
+        <AnimatePresence>
+          {showForm && (
+            <motion.form
+              key="search-form"
+              initial={{ opacity: 0, y: -20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.9 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+              }}
+              className="form"
+              onSubmit={handleSubmit}
+              onAnimationComplete={() => {
+                if (showForm) {
+                  focusInput();
+                }
+              }}
+              style={{
+                position: "absolute", // Позиціонуємо абсолютно, щоб вона не впливала на розміщення кнопки
+                top: "calc(100% + 1rem)", // Розміщуємо нижче кнопки
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "100%",
+                maxWidth: "600px",
+              }}
             >
-              <MapPin size={16} />
-            </button>
-          </motion.form>
-        )}
-      </AnimatePresence>
-    </motion.div>
+              <div className="form__group">
+                <input
+                  ref={cityInputRef}
+                  type="text"
+                  placeholder="Введіть назву міста"
+                  className="form__input"
+                  value={cityInput}
+                  onChange={(e) => {
+                    setCityInput(e.target.value);
+                    setInputError(null);
+                  }}
+                />
+                <AnimatePresence>
+                  {inputError && (
+                    <motion.div
+                      key="input-error-message"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="form__error"
+                    >
+                      {inputError}
+                      <button
+                        type="button"
+                        onClick={() => setInputError(null)}
+                        className="form__error-close-btn"
+                        aria-label="Приховати помилку"
+                      >
+                        <XCircle size={16} />
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                <button type="submit" className="form__submit" title="Пошук">
+                  <Search size={16} />
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleGeolocation}
+                className="form__button"
+                title="Визначити моє місцезнаходження"
+              >
+                <MapPin size={16} />
+              </button>
+            </motion.form>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </AnimatePresence>
   );
 }
-
-export default WeatherForm;

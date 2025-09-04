@@ -72,8 +72,26 @@ body {
   justify-content: center;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  /* Забезпечуємо, що root займає всю доступну ширину та висоту */
+  /* Також можна використати display: flex, якщо потрібно центрувати всередині нього */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .weather {
-  width: 600px;
+  width: 90%;
+  max-width: 600px;
   position: relative;
 
   &__title {

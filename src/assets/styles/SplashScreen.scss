@@ -113,5 +113,9 @@
       color: var(--accent-text);
       transition: transform-origin 3s ease-out;
     }
+
+    @media (max-width: 768px) {
+      font-size: 1.2em;
+    }
   }
 }

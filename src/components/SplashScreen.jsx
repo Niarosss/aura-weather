@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import RotatingText from "./RotatingText";
-import "../assets/styles/SplashScreen.scss"; // Створимо цей файл стилів
+import "../assets/styles/SplashScreen.scss";
 
 const splashVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -10,10 +10,10 @@ const splashVariants = {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 1.5, // Тривалість анімації появи
+      duration: 1.5,
       ease: "easeOut",
-      when: "beforeChildren", // Анімуємо батьківський елемент перед дочірніми
-      staggerChildren: 0.3, // Затримка між анімаціями дочірніх елементів
+      when: "beforeChildren",
+      staggerChildren: 0.3,
     },
   },
   exit: {
@@ -35,7 +35,7 @@ function SplashScreen({ onStart, theme, onToggleTheme }) {
       variants={splashVariants}
       initial="hidden"
       animate="visible"
-      exit="exit" // Додаємо exit, щоб AnimatePresence могла його анімувати
+      exit="exit"
     >
       <motion.h1 variants={itemVariants} className="splash-screen__title">
         Aura Weather
@@ -66,7 +66,7 @@ function SplashScreen({ onStart, theme, onToggleTheme }) {
           exit={{ y: "-120%" }}
           staggerDuration={0.05}
           transition={{ type: "spring", damping: 30, stiffness: 400 }}
-          rotationInterval={4000} // Трохи швидша ротація для динаміки
+          rotationInterval={4000}
         />
       </motion.div>
       <motion.div variants={itemVariants} className="splash-screen__buttons">
