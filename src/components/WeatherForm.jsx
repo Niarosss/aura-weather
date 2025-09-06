@@ -151,8 +151,7 @@ function WeatherForm({ addLocations }) {
               style={{
                 position: "absolute", // Позиціонуємо абсолютно, щоб вона не впливала на розміщення кнопки
                 top: "calc(100% + 1rem)", // Розміщуємо нижче кнопки
-                left: "50%",
-                transform: "translateX(-50%)",
+
                 width: "100%",
                 maxWidth: "600px",
               }}
@@ -210,3 +209,4 @@ function WeatherForm({ addLocations }) {
     </AnimatePresence>
   );
 }
+export default WeatherForm;
