@@ -15,6 +15,8 @@
   backdrop-filter: blur(4px);
   will-change: backdrop-filter;
   background-attachment: fixed;
+  margin-top: 3rem;
+  gap: 1rem;
 }
 
 .details__back-btn {
@@ -31,7 +33,6 @@
   font-weight: 600;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   align-self: flex-start;
-  margin-bottom: 20px;
 
   &:hover {
     background-color: var(--btn-secondary-hover-bg);
@@ -50,7 +51,6 @@
 .details__title {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 10px;
   color: var(--heading);
   text-align: center;
 }
@@ -87,7 +87,6 @@
   gap: 1rem;
   width: 100%;
   max-width: 600px;
-  margin-top: 20px;
 }
 
 .details__item {
@@ -117,7 +116,6 @@
 @media (max-width: 768px) {
   .details {
     padding: 15px;
-    gap: 15px;
   }
 
   .details__title {
