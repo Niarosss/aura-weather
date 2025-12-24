@@ -13,12 +13,20 @@ import {
   CircleGauge,
 } from "lucide-react";
 
-function WeatherCard({ city, pinned, onRemove, onTogglePin, onSelectCity }) {
+function WeatherCard({
+  city,
+  pinned,
+  onRemove,
+  onTogglePin,
+  onSelectCity,
+  isEmptyPlaceholder,
+}) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!city) return;
     const fetchWeather = async () => {
       setLoading(true);
       setError(null);
@@ -42,16 +50,19 @@ function WeatherCard({ city, pinned, onRemove, onTogglePin, onSelectCity }) {
     }
   };
 
+  if (isEmptyPlaceholder) {
+    return (
+      <motion.div className="card card--empty">
+        <p>Будь ласка, додайте локацію для перегляду погоди.</p>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       className={`card ${pinned ? "pinned" : ""}`}
-      transition={{ duration: 0.3 }}
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.5 }}
-      layout
-      style={{ position: "relative", cursor: "pointer" }} // Додаємо cursor: pointer
-      onClick={handleClick} // <--- Додаємо обробник кліку
+      style={{ position: "relative", cursor: "pointer" }}
+      onClick={handleClick}
     >
       <AnimatePresence>
         {loading && (
@@ -99,22 +110,24 @@ function WeatherCard({ city, pinned, onRemove, onTogglePin, onSelectCity }) {
           <div className="card__description">
             <div className="card__block">
               <Droplet size={16} color="var(--heading)" />
-              <p>
-                {data.humidity}
-                <span className="small"> %</span>
-              </p>
+              <div className="card__block-element">
+                <p>{data.humidity}</p>
+                <span className="small">%</span>
+              </div>
             </div>
             <div className="card__block">
               <Wind size={16} color="var(--heading)" />
-              <p>
-                {Math.round(data.wind_speed)} <span className="small">м/с</span>
-              </p>
+              <div className="card__block-element">
+                <p>{Math.round(data.wind_speed)}</p>
+                <span className="small">м/с</span>
+              </div>
             </div>
             <div className="card__block">
               <CircleGauge size={16} color="var(--heading)" />
-              <p>
-                {data.pressure} <span className="small">гПа</span>
-              </p>
+              <div className="card__block-element">
+                <p>{data.pressure}</p>
+                <span className="small">гПа</span>
+              </div>
             </div>
           </div>
           <button
@@ -124,7 +137,7 @@ function WeatherCard({ city, pinned, onRemove, onTogglePin, onSelectCity }) {
             }}
             className="card__btn-control btn-pin"
           >
-            {pinned ? <PinOff size={12} /> : <Pin size={12} />}
+            {pinned ? <PinOff size={16} /> : <Pin size={16} />}
           </button>
           <button
             onClick={(e) => {

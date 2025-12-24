@@ -1,0 +1,65 @@
+:root {
+  --bg-start-color: #7abbd5;
+  --bg-end-color: #a1cfe1;
+  --text: #6b6f71;
+  --heading: #353838;
+  --text-muted: #95999b;
+  --input-bg: rgba(216, 217, 218, 0.3);
+  --input-border: rgba(208, 208, 208, 0.3);
+  --input-text: #2c2e2e;
+  --foreground: rgba(251, 251, 251, 0.3);
+  --border: rgba(222, 223, 224, 0.3);
+  --btn-bg: rgba(76, 145, 173, 0.7);
+  --btn-text: #13313d;
+  --btn-hover: rgba(68, 122, 143, 0.7);
+  --btn-active: rgba(124, 189, 215, 0.7);
+  --btn-secondary-bg: rgba(213, 148, 122, 0.7);
+  --btn-secondary-text: #3d1f13;
+  --btn-secondary-hover-bg: rgba(243, 169, 140, 0.7);
+  --error: rgba(177, 67, 67, 0.5);
+  --error-text: #2b0d0d;
+  --warning: #d5d57a;
+  --warning-text: #3d3d13;
+  --success: rgba(122, 213, 122, 0.5);
+  --success-text: #133d13;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --item-bg: rgba(238, 238, 238, 0.3);
+  --item-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dark {
+  --bg-start-color: #0f0f23;
+  --bg-end-color: #2f2f43;
+  --text: #d8d9da;
+  --heading: #fbfbfb;
+  --text-muted: #a4a7a8;
+  --foreground: rgba(37, 39, 39, 0.3);
+  --border: rgba(62, 64, 65, 0.3);
+  --input-bg: rgba(33, 33, 34, 0.5);
+  --input-border: rgba(52, 51, 51, 0.7);
+  --input-text: #dcdcdc;
+  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --item-bg: rgba(47, 48, 48, 0.3);
+  --item-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+      180deg,
+      var(--bg-start-color) 0%,
+      var(--bg-end-color) 100%
+    )
+    no-repeat fixed;
+  transition: background 0.5s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: Segoe UI, sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}

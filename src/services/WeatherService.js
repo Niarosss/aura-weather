@@ -52,6 +52,11 @@ async function cachedFetch(key, fetcher) {
  * @throws {Error} Якщо місто не знайдено або виникла помилка API.
  */
 export async function checkCityExistsAndGetName(cityName) {
+  // Перевірка, чи складається назва міста лише з цифр.
+  if (/^\d+$/.test(cityName)) {
+    throw new Error(`Місто "${cityName}" не знайдено.`);
+  }
+
   const cacheKey = `city_geocode_${cityName.toLowerCase()}`;
 
   const fetcher = async () => {
@@ -65,6 +70,8 @@ export async function checkCityExistsAndGetName(cityName) {
     if (data.length === 0) {
       throw new Error(`Місто "${cityName}" не знайдено.`);
     }
+    // Повертаємо офіційну назву, оскільки API може повернути дещо інше
+    // наприклад, для "london" може повернути "London"
     return data[0].name;
   };
 

@@ -1,121 +1,74 @@
-import React, { useCallback } from "react";
-import { Particles } from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim"; // Використовуйте 'tsparticles-slim' для меншого розміру bundle
+import React, { useEffect, useState } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 const AppParticlesBackground = () => {
-  const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine);
+  const [init, setInit] = useState(false);
+
+  // Ініціалізація двигуна один раз при монті компонента
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
 
-  const particlesLoaded = useCallback(async (container) => {
-    // Ця функція викликається, коли частинки повністю завантажені
-    // console.log("Particles container loaded", container);
-  }, []);
-
-  // Налаштування частинок для інтерактивного фону
   const options = {
+    fpsLimit: 120,
+    interactivity: {
+      events: {
+        onClick: { enable: true, mode: "push" },
+        onHover: { enable: true, mode: "repulse" },
+        resize: true,
+      },
+      modes: {
+        push: { quantity: 4 },
+        repulse: { distance: 100, duration: 0.4 },
+      },
+    },
     particles: {
-      number: {
-        value: 60, // Кількість частинок
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        // Кольори частинок. Можна використовувати CSS-змінні для інтеграції з темою,
-        // але для цього потрібно буде передавати тему сюди або отримати її іншим способом.
-        // Для простоти зараз використовую фіксовані кольори.
-        value: ["#ffffff", "#cccccc", "#bbbbbb"],
-      },
-      shape: {
-        type: "circle", // Форма частинок
-        stroke: {
-          width: 0,
-          color: "#000000",
-        },
-      },
-      opacity: {
-        value: 0.5,
-        random: true,
-        anim: {
-          enable: true,
-          speed: 1,
-          opacity_min: 0.2,
-          sync: false,
-        },
-      },
-      size: {
-        value: 4, // Розмір частинок
-        random: true,
-        anim: {
-          enable: true,
-          speed: 2,
-          size_min: 0.2,
-          sync: false,
-        },
-      },
-      line_linked: {
-        enable: false, // Не з'єднувати частинки лініями, щоб фон був чистішим
-      },
+      color: { value: ["#ffffff", "#cccccc", "#bbbbbb"] },
       move: {
         enable: true,
-        speed: 1, // Загальна швидкість руху
+        speed: 1,
         direction: "none",
         random: true,
         straight: false,
-        out_mode: "out",
-        bounce: false,
+        outModes: { default: "out" },
+      },
+      number: {
+        density: { enable: true, area: 800 },
+        value: 60,
+      },
+      opacity: {
+        value: { min: 0.2, max: 0.5 },
+        animation: {
+          enable: true,
+          speed: 1,
+          sync: false,
+        },
+      },
+      shape: { type: "circle" },
+      size: {
+        value: { min: 0.2, max: 4 },
+        animation: {
+          enable: true,
+          speed: 2,
+          sync: false,
+        },
       },
     },
-    interactivity: {
-      detect_on: "canvas", // Взаємодія буде детектуватися на полотні
-      events: {
-        onhover: {
-          enable: true, // Включити реакцію на наведення курсора
-          mode: "repulse", // Режим: частинки відштовхуються від курсора
-        },
-        onclick: {
-          enable: true, // Включити реакцію на клік
-          mode: "push", // Режим: додати нові частинки при кліку
-        },
-        resize: true, // Перерахувати частинки при зміні розміру вікна
-      },
-      modes: {
-        repulse: {
-          distance: 100, // Відстань, на якій частинки відштовхуються
-          duration: 0.4,
-        },
-        push: {
-          particles_nb: 4, // Кількість частинок, які додаються за клік
-        },
-        // Інші режими, якщо потрібні: grab, bubble, remove
-      },
-    },
-    retina_detect: true,
-    background: {
-      color: {
-        value: "transparent", // Фон буде встановлюватися за допомогою CSS на `body`
-      },
+    detectRetina: true,
+    fullScreen: {
+      enable: true,
+      zIndex: -2,
     },
   };
 
-  return (
-    <Particles
-      id="tsparticles-app-background"
-      init={particlesInit}
-      loaded={particlesLoaded}
-      options={options}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: -2, // Переміщуємо на задній план, щоб не перекривати UI
-      }}
-    />
-  );
+  if (!init) return null;
+
+  return <Particles id="tsparticles-app-background" options={options} />;
 };
 
 export default AppParticlesBackground;

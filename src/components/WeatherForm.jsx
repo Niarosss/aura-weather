@@ -1,42 +1,36 @@
 // components/WeatherForm.jsx
-import { useState, useEffect, useRef } from "react";
-import { Search, MapPin, XCircle, CirclePlus, CircleX } from "lucide-react"; // Додаємо MapPin
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Search, MapPin, Eraser, Plus, X } from "lucide-react";
 import {
   getCityNameByCoords,
   checkCityExistsAndGetName,
-} from "../services/WeatherService"; // Для отримання даних по гео
+} from "../services/WeatherService";
 import "../assets/styles/Form.scss";
 
 function WeatherForm({ addLocations }) {
   const [cityInput, setCityInput] = useState("");
   const [inputError, setInputError] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-
-  // Фокус по реф
+  const [isOpen, setIsOpen] = useState(false);
   const cityInputRef = useRef(null);
-  const focusInput = () => {
-    if (cityInputRef.current) {
-      cityInputRef.current.focus();
-    }
-  };
 
   useEffect(() => {
-    let timer;
-    if (inputError) {
-      timer = setTimeout(() => {
-        setInputError(null); // Очищаємо помилку через 5 секунд
-      }, 5000); // 5 секунд
+    if (isOpen && cityInputRef.current) {
+      cityInputRef.current.focus();
     }
-    return () => {
-      clearTimeout(timer); // Очищаємо таймер при розмонтуванні або зміні inputError
-    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (inputError) {
+      const timer = setTimeout(() => {
+        setInputError(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
   }, [inputError]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setInputError(null);
-
     const trimmedCityInput = cityInput.trim();
 
     if (!trimmedCityInput) {
@@ -48,165 +42,136 @@ function WeatherForm({ addLocations }) {
       const officialCityName = await checkCityExistsAndGetName(
         trimmedCityInput
       );
-
       if (officialCityName) {
         const result = addLocations(officialCityName);
-        if (!result) {
+        if (result?.error) {
+          setInputError(result.error);
+        } else {
           setCityInput("");
           setInputError(null);
-          setShowForm(false);
-        } else {
-          setInputError(result.error);
+          setIsOpen(false);
         }
       }
-    } catch (err) {
-      setInputError(err.message);
+    } catch (error) {
+      setInputError(error.message);
     }
   };
 
-  const handleGeolocation = async () => {
-    setInputError(null); // Очищаємо попередні помилки перед новою спробою
-
-    if (!navigator.geolocation) {
-      setInputError("Ваш браузер не підтримує геолокацію.");
-      return;
-    }
-
-    try {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        });
-      });
-
-      const { latitude, longitude } = position.coords;
-
-      const weatherData = await getCityNameByCoords(latitude, longitude);
-      if (weatherData) {
-        const result = addLocations(weatherData);
-        if (!result) {
-          setCityInput("");
-          setInputError(null);
-          setShowForm(false);
-        } else {
-          setInputError(result.error);
+  const handleGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const officialCityName = await getCityNameByCoords(
+            position.coords.latitude,
+            position.coords.longitude
+          );
+          if (officialCityName) {
+            const result = addLocations(officialCityName);
+            if (result?.error) {
+              setInputError(result.error);
+              setIsOpen(true);
+            }
+          }
+        } catch (error) {
+          setInputError(error.message);
+          setIsOpen(true);
         }
-      } else {
-        setInputError("Не вдалось визначити місто за вашими координатами.");
+      },
+      (error) => {
+        setInputError("Не вдалося отримати геолокацію.");
+        setIsOpen(true);
       }
-    } catch (err) {
-      if (err.code === err.PERMISSION_DENIED) {
-        setInputError("Доступ до геолокації відмовлено.");
-      } else if (err.code === err.POSITION_UNAVAILABLE) {
-        setInputError("Інформація про місцезнаходження недоступна.");
-      } else if (err.code === err.TIMEOUT) {
-        setInputError("Час очікування геолокації вичерпано.");
-      } else {
-        setInputError("Помилка отримання місцезнаходження. Спробуйте пізніше.");
-      }
-    }
+    );
   };
 
   return (
-    <AnimatePresence initial={false}>
-      {/* Кнопка завжди в центрі, і її позиція не змінюється */}
-      <motion.div
-        className="form__wrapper"
-        key="menu"
-        layout
-        style={{ position: "relative" }} // Додаємо, щоб позиціонувати форму всередині
-      >
-        <motion.button
-          key="form-btn"
-          transition={{ duration: 0.3 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`form__toggle ${showForm ? "cancel" : "add"}`}
-          onClick={() => setShowForm((prev) => !prev)}
-        >
-          {showForm ? <CircleX size={16} /> : <CirclePlus size={16} />}
-        </motion.button>
-
+    <div className="form__wrapper">
+      <motion.div className="form__container">
         <AnimatePresence>
-          {showForm && (
-            <motion.form
-              key="search-form"
-              initial={{ opacity: 0, y: -20, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.9 }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-              }}
+          {isOpen && (
+            <motion.div
               className="form"
-              onSubmit={handleSubmit}
-              onAnimationComplete={() => {
-                if (showForm) {
-                  focusInput();
-                }
-              }}
-              style={{
-                position: "absolute", // Позиціонуємо абсолютно, щоб вона не впливала на розміщення кнопки
-                top: "calc(100% + 1rem)", // Розміщуємо нижче кнопки
-
-                width: "100%",
-                maxWidth: "600px",
-              }}
+              initial={{ maxWidth: 0, opacity: 0 }}
+              animate={{ maxWidth: 500, opacity: 1 }}
+              exit={{ maxWidth: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
             >
-              <div className="form__group">
-                <input
-                  ref={cityInputRef}
-                  type="text"
-                  placeholder="Введіть назву міста"
-                  className="form__input"
-                  value={cityInput}
-                  onChange={(e) => {
-                    setCityInput(e.target.value);
-                    setInputError(null);
-                  }}
-                />
-                <AnimatePresence>
-                  {inputError && (
-                    <motion.div
-                      key="input-error-message"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="form__error"
-                    >
-                      {inputError}
-                      <button
-                        type="button"
-                        onClick={() => setInputError(null)}
-                        className="form__error-close-btn"
-                        aria-label="Приховати помилку"
-                      >
-                        <XCircle size={16} />
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                <button type="submit" className="form__submit" title="Пошук">
-                  <Search size={16} />
+              <form className="form__inner" onSubmit={handleSubmit}>
+                <div className="form__input-group">
+                  <div className="form__field">
+                    <input
+                      className="form__input"
+                      ref={cityInputRef}
+                      type="text"
+                      placeholder="Введіть місто..."
+                      value={cityInput}
+                      onChange={(e) => setCityInput(e.target.value)}
+                    />
+                    {cityInput && (
+                      <Eraser
+                        size={16}
+                        className="form__icon-clear"
+                        onClick={() => setCityInput("")}
+                      />
+                    )}
+                  </div>
+                  <button type="submit" className="form__btn">
+                    <Search
+                      size={16}
+                      color="var(--heading)"
+                      className="form__icon"
+                    />
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  className="form__btn-icon"
+                  onClick={handleGeoLocation}
+                >
+                  <MapPin size={16} />
                 </button>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleGeolocation}
-                className="form__button"
-                title="Визначити моє місцезнаходження"
-              >
-                <MapPin size={16} />
-              </button>
-            </motion.form>
+              </form>
+            </motion.div>
           )}
         </AnimatePresence>
+
+        <button
+          className="form__btn-toggle"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              style={{ display: "flex", alignItems: "center" }}
+              key={isOpen ? "open" : "closed"}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {isOpen ? (
+                <X size={28} color="#dc3545" />
+              ) : (
+                <Plus size={28} color="#28a745" />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </button>
       </motion.div>
-    </AnimatePresence>
+
+      <AnimatePresence>
+        {isOpen && inputError && (
+          <motion.p
+            className="form__error"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+          >
+            {inputError}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
+
 export default WeatherForm;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import RotatingText from "./RotatingText";
@@ -40,11 +40,7 @@ function SplashScreen({ onStart, theme, onToggleTheme }) {
       <motion.h1 variants={itemVariants} className="splash-screen__title">
         Aura Weather
       </motion.h1>
-      <motion.div
-        variants={itemVariants}
-        className="splash-screen__subtitle"
-        layout
-      >
+      <motion.div variants={itemVariants} className="splash-screen__subtitle">
         <span className="splash-screen__subtitle-static">
           Ваш точний прогноз для
         </span>

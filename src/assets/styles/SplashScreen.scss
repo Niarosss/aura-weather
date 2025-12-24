@@ -9,6 +9,7 @@
 }
 
 .splash-screen {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,7 +78,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px 4px #0000001a;
     transition: background-color 0.3s ease;
     will-change: transform;
     text-shadow: black 0px 1px 2px;

@@ -1,136 +1,122 @@
 .form {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 
   &__wrapper {
-    display: flex;
-    gap: 0.8rem;
-    justify-content: center;
-  }
-  &__toggle {
-    display: flex;
-    align-items: center;
-    padding: 0.85rem;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    box-shadow: var(--item-shadow);
-    opacity: 0.9;
-    color: #fff;
-
-    &.add {
-      background-color: var(--success);
-    }
-    &.cancel {
-      background-color: var(--error);
-    }
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  &__group {
-    display: flex;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    height: 50px;
   }
 
-  &__error {
-    position: absolute;
-    background-color: var(--error);
-    border: 1px solid var(--border);
-    padding: 8px 12px;
-    border-radius: 10px;
-    margin: 1rem;
-    left: 0;
-    bottom: 40px;
-    color: var(--error-text);
-    font-size: 0.9rem;
+  &__container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(4px);
+    background-color: var(--foreground);
+    border-radius: 50px;
+    box-shadow: var(--card-shadow);
+    padding: 8px;
+  }
 
-    &-close-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--error-text);
-      margin-left: 10px;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease-in-out;
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-right: 6px;
+  }
 
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      &:active {
-        transform: scale(0.9);
-      }
-    }
+  &__input-group {
+    display: flex;
+    align-items: center;
+    background-color: var(--input-bg);
+    border: 1px solid var(--btn-bg);
+    border-radius: 26px;
+    overflow: hidden;
   }
 
   &__input {
-    padding: 0.4rem 0.6rem;
-    background-color: var(--input-bg);
-    color: var(--input-text);
-    border: 1px solid var(--input-border);
-    border-radius: 10px 0 0 10px;
-    width: 214px;
-    box-shadow: var(--item-shadow);
-    backdrop-filter: blur(4px);
-
+    background: transparent;
+    border: none;
+    color: var(--heading);
+    padding: 0.5rem;
+    width: 150px;
+    padding-right: 2rem;
     &:focus {
       outline: none;
-      border-color: var(--btn-bg);
-    }
-    &:hover {
-      border-color: var(--btn-hover);
     }
   }
-
-  &__submit,
-  &__button {
-    padding: 0.8rem;
-    transition: transform 0.3s ease;
+  &__field {
+    position: relative;
     display: flex;
     align-items: center;
-    box-shadow: var(--item-shadow);
+    padding: 0 1rem;
+  }
+  &__icon-clear {
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+    color: var(--text);
   }
 
-  &__submit {
+  &__btn {
+    padding: 0.7rem;
+    border: none;
     background-color: var(--btn-bg);
     color: var(--btn-text);
-    border-radius: 0 10px 10px 0;
-    margin-left: -1px;
-    border: 1.4px solid var(--btn-bg);
+    cursor: pointer;
+    height: 100%;
+    transition: filter 0.3s ease;
+    line-height: 1;
 
     &:hover {
-      cursor: pointer;
-      background-color: var(--btn-hover);
-      border: 1.4px solid var(--btn-hover);
-    }
-
-    &:active {
-      background-color: var(--btn-active);
+      filter: brightness(1.2);
     }
   }
 
-  &__button {
-    margin-left: 0.8rem;
-    border-radius: 10px;
+  &__btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
     border: 1.4px solid var(--border);
     background-color: var(--btn-secondary-bg);
     color: var(--btn-secondary-text);
 
     &:hover {
-      cursor: pointer;
       background-color: var(--btn-secondary-hover-bg);
     }
+  }
+
+  &__btn-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+  }
+
+  &__error {
+    position: absolute;
+    top: -2.5rem;
+    left: 0;
+    background-color: #ff4d4d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    box-shadow: var(--card-shadow);
   }
 }
